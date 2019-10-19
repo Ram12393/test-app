@@ -1,7 +1,18 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CalenderComponent } from './components/calender/calender.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
+const routes: Routes = [
+  {
+    path: '', component: SignInComponent
+  },
+  {
+    path: 'home',
+    loadChildren: './modules/home/home.module#HomeModule',
 
-const routes: Routes = [];
+
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

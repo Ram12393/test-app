@@ -1,0 +1,32 @@
+<div class="calendar-content">
+  <div class="header">
+    <div class="left">
+      <button id="prev" (click)="prevDate()">
+        <span>&#60;</span>
+      </button> &nbsp;&nbsp;
+      <span class="center" id="start-date">{{start | date : 'dd'}}</span> -
+      <span class="center" id="end-date">{{end | date : 'dd MMM, yyyy'}}</span>&nbsp;&nbsp;&nbsp;&nbsp;<button id="next"
+        (click)="nextDate()"><span>&#62;</span></button>
+    </div>
+    <div class="right">
+      <select id="select" class="select-arrow" (change)="onChange($event.target.value)">
+        <option value="dayGridMonth">
+          Month &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </option>
+        <option value="timeGridWeek" selected>
+          Week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </option>
+        <option value="timeGridDay">
+          Day &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </option>
+      </select>
+    </div>
+  </div>
+  <full-calendar #calendar [defaultView]=" defaultView" [header]="false" [plugins]="calendarPlugins"
+    [weekends]="calendarWeekends" [events]="calendarEvents" (dateClick)="handleDateClick($event)"
+    (eventClick)="eventClick($event)">
+  </full-calendar>
+</div>
+<ng-container>
+  <app-new-appoinment [currentState]="righSideMenuState" [hideMenu]="HideRightSideMenu"></app-new-appoinment>
+</ng-container>

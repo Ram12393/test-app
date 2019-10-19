@@ -1,0 +1,15 @@
+<!-- NAV CONTENT -->
+<div class="nav-btn">
+  <ul>
+    <li>
+      <a href="#">Schedule</a>
+    </li>
+    <li>
+      <a href="#"><i class="fa fa-search"></i></a>
+    </li>
+  </ul>
+</div>
+<button class="btn  btn-tog hide" (click)="clickHere('state2')">&#9776;</button>
+<ng-container>
+  <app-right-side-menu [currentState]="righSideMenuState" [hideMenu]="HideRightSideMenu"></app-right-side-menu>
+</ng-container>

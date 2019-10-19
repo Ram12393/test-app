@@ -1,0 +1,41 @@
+
+/* Top Navigation  */
+.nav-btn {
+  width: 100vW;
+  padding:10px 0 0 5%;
+  position: relative;
+}
+
+.nav-btn ul li {
+  list-style: none;
+  display: inline-block;
+  padding-bottom: 8px;
+}
+.nav-btn ul li a {
+  text-decoration: none;
+}
+.nav-btn ul li:not(:last-child) {
+  padding: 0 63% 0 0;
+}
+.nav-btn ul li:first-child a {
+  font-size: 25px;
+  font-weight: 700;
+  color: #222;
+}
+.nav-btn ul li:last-child a {
+  font-size: 20px;
+  color: #339efe; 
+  font-weight: 100;
+}
+
+.btn {
+  float: right;
+  margin-right: 25px;
+}
+.btn-tog {
+  position: absolute;
+  top: 2%;
+  right: 10px;
+  color: #222;
+  z-index: 10;
+}
