@@ -1,69 +1,53 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { EventInput } from '@fullcalendar/core';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-calender',
   templateUrl: './calender.component.html',
   styleUrls: ['./calender.component.scss']
 })
-export class CalenderComponent implements OnInit {
+export class CalenderComponent implements OnInit, AfterViewInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
-  calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() }
-  ];
-  defaultView = 'timeGridWeek';
+  calendarEvents: EventInput[] = [];
+  defaultView = 'dayGridMonth';
   displayDate: Date;
   start: Date;
   end: Date;
+  selectedDateDetails: any;
   calendarApi;
   public righSideMenuState = 'state1';
   constructor(
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     this.getScheduleAppointments();
   }
+
   ngAfterViewInit() {
     setTimeout(() => {
       this.calendarApi = this.calendarComponent.getApi();
       this.setDisplayDate();
-      this
-    })
+    });
   }
+
   handleDateClick(arg) {
-    console.log(arg);
-    this.clickHere('state2')
-    // if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-    //   this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-    //     title: 'New Event',
-    //     start: arg.date,
-    //     allDay: arg.allDay
-    //   });
-    // }
+    this.getScheduleDateDetails(arg.date);
+    this.clickHere('state2');
+
   }
 
 
-  addEvent() {
-    const item = [{ title: 'event 2', date: '2019-04-02' }];
-    this.calendarEvents = this.calendarEvents.concat(item);
-  }
-
-  modifyTitle(eventIndex, newTitle) {
-    const calendarEvents = this.calendarEvents.slice(); // a clone
-    const singleEvent = Object.assign({}, calendarEvents[eventIndex]); // a clone
-    singleEvent.title = newTitle;
-    calendarEvents[eventIndex] = singleEvent;
-    this.calendarEvents = calendarEvents; // reassign the array
-  }
   eventClick(event) {
-    console.log(event);
+    console.log(this.calendarComponent.getApi());
   }
   nextDate() {
     this.calendarApi.next();
@@ -99,7 +83,31 @@ export class CalenderComponent implements OnInit {
 
   getScheduleAppointments() {
     this.appointmentService.getScheduledAppointments().subscribe(res => {
-      console.log(res);
+      res.result.map(el => {
+        el.title = el.detail.reason;
+      });
+      this.calendarEvents = [...res.result];
+    });
+  }
+
+  getScheduleDateDetails(selectedDate) {
+    const date = {
+      day: new Date(selectedDate).getDate(),
+      year: new Date(selectedDate).getFullYear(),
+      month: new Date(selectedDate).getMonth() + 1
+    };
+    this.appointmentService.getScheduleDateAppointment(date).subscribe(res => {
+      this.selectedDateDetails = res;
+    });
+  }
+
+  deleteSchedule(id) {
+    this.appointmentService.deleteScheduleAppointment(id).subscribe(res => {
+      this.snackBar.open(res.message, '', {
+        duration: 2000
+      });
+      this.getScheduleAppointments();
+      this.righSideMenuState = 'state1';
     });
   }
 }

@@ -1,0 +1,33 @@
+<div class="right-content" [@amenitiesanimations]=currentState>
+  <div class="new-btn">
+    <ul>
+      <li>
+        <h6>Appointment details</h6>
+      </li>
+      <li>
+        <a class="cross" (click)="hideMenu()">&#10005;</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12" *ngFor="let item of selectedDateDetails">
+      <p *ngIf="!item"> No data</p>
+      <p><span>Doctor Name:</span> {{item.scheduled_by_user.name}}</p>
+      <p><span>Appointment Date:</span> {{item.start | date : 'dd MMM, yyyy'}}</p>
+      <div class="patient-details">
+        <h5>Patient Datails</h5>
+        <p><span>Name:</span> {{item.scheduled_with_user.name}}</p>
+        <p><span>Email:</span> {{item.scheduled_with_user.email}}</p>
+        <p><span>Reason:</span> {{item.detail.reason}}</p>
+      </div>
+      <div class="patient-history">
+        <p *ngFor="let element of item.scheduled_with_user.history;let i = index">{{i+1}}.{{element.question}}</p>
+      </div>
+      <div>
+        <button class="btn btn-primary" (click)="delete(item.schedule_id)">Delete</button>
+      </div>
+      <hr>
+    </div>
+  </div>
+</div>

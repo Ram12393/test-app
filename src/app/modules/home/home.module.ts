@@ -9,6 +9,7 @@ import { LeftSideMenuComponent } from 'src/app/components/shared/left-side-menu/
 import { RightSideMenuComponent } from 'src/app/components/shared/right-side-menu/right-side-menu.component';
 import { HeaderComponent } from 'src/app/components/shared/header/header.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { AppointDetailsComponent } from 'src/app/components/appoint-details/appoint-details.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     RightSideMenuComponent,
     LeftSideMenuComponent,
     CalenderComponent,
+    AppointDetailsComponent,
     NewAppoinmentComponent,
   ],
   imports: [

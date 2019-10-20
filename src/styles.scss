@@ -36,7 +36,11 @@ $testapp-theme: mat-light-theme($testapp-primary, $testapp-accent, $testapp-warn
     left: 8%;
     position: absolute;
     top: 15%;
-    width: 100%;
+    width: fit-content;
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.fc-unthemed td.fc-today {
+    background: #fcf8e3;
+}

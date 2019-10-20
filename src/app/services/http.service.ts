@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,23 +11,28 @@ import { Observable } from 'rxjs';
 export class HttpService {
 
   public baseUrl: string;
-  public token:string
+
   constructor(
     private route: ActivatedRoute,
     public http: HttpClient,
+    private storage: StorageService
   ) {
     this.baseUrl = environment.httpUrl;
-    this.token = localStorage.getItem('token');
   }
 
 
   addHeaders() {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('X-Access-Token', this.token);
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    if (this.storage.get('token')) {
+      headers = headers.set(
+        'X-Access-Token', this.storage.get('token')
+      );
+    }
+
     return headers;
   }
+
 
   get(resource: string): Observable<any> {
     const headers = this.addHeaders();
@@ -40,7 +46,6 @@ export class HttpService {
   post(resource: string, data: any): Observable<any> {
     const headers = this.addHeaders();
     const url = this.baseUrl + resource;
-
     return this.http.post(url, data,
       {
         headers,
@@ -64,4 +69,5 @@ export class HttpService {
         headers
       });
   }
+
 }

@@ -10,23 +10,25 @@
     </div>
     <div class="right">
       <select id="select" class="select-arrow" (change)="onChange($event.target.value)">
-        <option value="dayGridMonth">
+        <option value="dayGridMonth" selected>
           Month &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </option>
-        <option value="timeGridWeek" selected>
+        <option value="timeGridWeek">
           Week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </option>
         <option value="timeGridDay">
           Day &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </option>
-      </select>
+        </select>
     </div>
   </div>
-  <full-calendar #calendar [defaultView]=" defaultView" [header]="false" [plugins]="calendarPlugins"
-    [weekends]="calendarWeekends" [events]="calendarEvents" (dateClick)="handleDateClick($event)"
-    (eventClick)="eventClick($event)">
-  </full-calendar>
+  <div class="calender-body">
+    <full-calendar #calendar [defaultView]="defaultView" [header]="false" [plugins]="calendarPlugins"
+      [weekends]="calendarWeekends" [events]="calendarEvents" (dateClick)="handleDateClick($event)"
+      (eventClick)="eventClick($event)">
+    </full-calendar>
+  </div>
 </div>
-<ng-container>
-  <app-new-appoinment [currentState]="righSideMenuState" [hideMenu]="HideRightSideMenu"></app-new-appoinment>
+<ng-container >
+  <app-appoint-details [currentState]="righSideMenuState" [selectedDateDetails]="selectedDateDetails" [hideMenu]="HideRightSideMenu" (deleteSchedule) = deleteSchedule($event)></app-appoint-details>
 </ng-container>

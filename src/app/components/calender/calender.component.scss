@@ -1,6 +1,6 @@
 
 .calendar-content {
-    max-width: 73vw;
+    max-width: 65vw;
 }
 #prev, #next{
   font-size: 20px;
@@ -54,4 +54,12 @@
 //   background-color: #f9f9f9;
 //   z-index: 12;
   
+// }
+
+// .calender-body::-webkit-scrollbar { 
+//   display: none;  // Safari and Chrome
+// }
+// .calender-body{
+//   height: 75vh;
+//   overflow-y: scroll
 // }

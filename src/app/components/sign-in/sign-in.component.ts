@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class SignInComponent implements OnInit {
 
   loginForm: FormGroup;
-
+  loading: boolean;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -35,6 +35,7 @@ export class SignInComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid) {
+      this.loading = true;
       this.auth.login(this.loginForm.value).subscribe(res => {
         this.storage.set('token', res.token);
         this.router.navigate(['/home']);

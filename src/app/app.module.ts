@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { AuthInterceptor } from './services/auth-interceptor';
+import { AppointDetailsComponent } from './components/appoint-details/appoint-details.component';
 
 @NgModule({
   declarations: [
@@ -36,11 +37,11 @@ import { AuthInterceptor } from './services/auth-interceptor';
     MatSnackBarModule
   ],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi: true
+    // },
 
   ],
   bootstrap: [AppComponent]

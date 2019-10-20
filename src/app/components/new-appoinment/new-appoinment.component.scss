@@ -20,8 +20,6 @@
 .new-btn ul li {
   list-style: none;
   display: inline-block;
-
-
 }
 
 .new-btn ul li:first-child a {
@@ -101,4 +99,8 @@ b{
         border-color: blue;
     }
   }
+}
+
+.cross{
+  cursor: pointer;
 }

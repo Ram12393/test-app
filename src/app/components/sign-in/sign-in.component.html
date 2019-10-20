@@ -28,7 +28,8 @@
       </div>
     </div>
       <div class="login-button pr-4">
-        <button (click)="login()">Login</button>
+        <div *ngIf="loading" id="loading"></div>
+        <button (click)="login()" >Login</button>
       </div>
     </form>
 
